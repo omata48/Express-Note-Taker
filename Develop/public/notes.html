@@ -23,20 +23,62 @@
   </nav>
   <div class="container-fluid">
     <div class="row">
+      <!-- Side pannel for  notes added under list-group as li -->
       <div class="col-4 list-container">
         <div class="card">
-          <ul class="list-group">
+          <ul id="noteList" class="list-group">
           </ul>
         </div>
       </div>
       <div class="col-8">
-        <input class="note-title" placeholder="Note Title" maxlength="28" type="text">
-        <textarea class="note-textarea" placeholder="Note Text"></textarea>
+        <div class="row">
+          <div class="col-12">
+            <input class="note-title" placeholder="Note Title" maxlength="28" type="text">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <textarea class="note-textarea" placeholder="Note Text"></textarea>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="/assets/js/index.js"></script>
 </body>
+
+<script type="text/javascript">
+  function runDataQuery() {
+    $.ajax({ url: "/api/notes", method: "GET" })
+      .then(function(dbData) {
+
+        console.log(dbData);
+        console.log("-------------------------------")
+        console.log(dbData.length);
+        for (var i = 0; i < dbData.length; i++) {
+          console.log("running", i)
+          var noteList = $("#noteList");
+          console.log(noteList);
+
+          var listItem = $("<li class='list-group-item'>");
+          console.log(listItem);
+
+          listItem.append(
+            $("<h2>").text("Title: " + dbData[i].title),
+            $("<p>").text("Note: " + dbData[i].text),
+          );
+          console.log(listItem);
+
+          noteList.append(listItem);
+        }
+      })
+  }
+
+  // init queries
+  runDataQuery();
+
+
+</script>
 
 </html>
