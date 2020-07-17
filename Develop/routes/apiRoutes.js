@@ -5,32 +5,37 @@ module.exports = function(app) {
     
     app.get("/api/notes", function(req, res) {
         // return db.json file and return saved notes as JSON
-        console.log(jsonData);
-        console.log("-----------------------");
-        if (jsonData.length === 0){
-            console.log("No notes");
-            res.send("No notes");
-        } else {
-            res.json(jsonData);
-        }
+        res.json(jsonData);
       });
 
     app.post("/api/notes", function(req, res) {
         // take in JSON 
-        var newNote = req.body
-        jsonData.push(newNote);
-        console.log(newNote);
-        console.log("-----------------------");
-        res.json(true);
-
         // add it to the db.json file
         // return new note to the client
+        var newNote = req.body
+        newNote.id = Math.floor(Math.random()*1000)
+        jsonData.push(newNote);
+        res.json(true);
+
     });
 
     app.delete("/api/notes/:id", function(req, res) {
         // receive query parameter containing id of note to delete
-        // need to read all notes from db.json file
-        // remove the note with unique ID that matches
-        // rewrite the nates to db.json file
+        // compare with notes from db.json file
+        // remove the note with unique ID that matches (splice)
+
+        // console.log(req.url);
+        // console.log(req.params.id)
+        let chosen = req.params.id; 
+        // console.log(jsonData[0].id)
+
+        for (var i = 0; i < jsonData.length; i++) {
+            // similar comparison b/c chose is string
+            if (chosen == jsonData[i].id) {
+                jsonData.splice(i,1);
+                break;
+            }
+        }
+        res.json(true)
     });
 };
