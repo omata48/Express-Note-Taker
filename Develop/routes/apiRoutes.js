@@ -1,15 +1,28 @@
-var jsonData = require("../db/db.json")
+var jsonData = require("../db/db.json");
+const { json } = require("express");
 
 module.exports = function(app) {
     
     app.get("/api/notes", function(req, res) {
         // return db.json file and return saved notes as JSON
-        res.json(jsonData);
+        console.log(jsonData);
+        console.log("-----------------------");
+        if (jsonData.length === 0){
+            console.log("No notes");
+            res.send("No notes");
+        } else {
+            res.json(jsonData);
+        }
       });
 
     app.post("/api/notes", function(req, res) {
         // take in JSON 
-        // add unique ID to each note
+        var newNote = req.body
+        jsonData.push(newNote);
+        console.log(newNote);
+        console.log("-----------------------");
+        res.json(true);
+
         // add it to the db.json file
         // return new note to the client
     });

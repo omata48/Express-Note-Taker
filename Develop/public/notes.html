@@ -8,10 +8,81 @@
   <title>Note Taker</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.3/flatly/bootstrap.min.css" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-    crossorigin="anonymous">
-  <link rel="stylesheet" href="/assets/css/styles.css">
+  crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="./assets/css/styles.css" />
 </head>
+<!-- <style>
+  html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
+.save-note {
+  display: none;
+}
+
+.icons i {
+  margin-left: 15px;
+  margin-right: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.note-textarea, .note-title {
+  color: #000000;
+  width: 100%;
+  outline: none;
+  border: none;
+}
+
+.note-textarea {
+  resize: none;
+  height: calc(100% - 63px);
+  padding-top: 15px;
+}
+
+.note-title {
+  height: 50px;
+  margin-top: 13px;
+  font-size: 3rem;
+}
+
+.note-title:read-only, .note-textarea:read-only {
+  color: #757575;
+}
+
+.list-container .card {
+  height: calc(100vh - 70px);
+  border-bottom: none;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.list-container {
+  padding-left: 0;
+}
+
+.list-container .list-group,
+.list-container .list-group-item:first-child,
+.list-container .card {
+  border-top: none;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.list-container i {
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.list-container .list-group-item {
+  border-left: none;
+  border-right: none;
+  padding: 20px;
+  cursor: pointer;
+}
+</style> -->
 <body>
   <nav class="navbar navbar-dark bg-dark">
     <a class="navbar-brand" href="/">Note Taker
@@ -30,55 +101,15 @@
           </ul>
         </div>
       </div>
+      <!-- Note Title and Text -->
       <div class="col-8">
-        <div class="row">
-          <div class="col-12">
-            <input class="note-title" placeholder="Note Title" maxlength="28" type="text">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <textarea class="note-textarea" placeholder="Note Text"></textarea>
-          </div>
-        </div>
+        <input class="note-title" placeholder="Note Title" maxlength="28" type="text">
+        <textarea class="note-textarea" placeholder="Note Text"></textarea>
       </div>
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="/assets/js/index.js"></script>
+  <script type="text/javascript" src="/assets/js/index.js"></script>
 </body>
-
-<script type="text/javascript">
-  function runDataQuery() {
-    $.ajax({ url: "/api/notes", method: "GET" })
-      .then(function(dbData) {
-
-        console.log(dbData);
-        console.log("-------------------------------")
-        console.log(dbData.length);
-        for (var i = 0; i < dbData.length; i++) {
-          console.log("running", i)
-          var noteList = $("#noteList");
-          console.log(noteList);
-
-          var listItem = $("<li class='list-group-item'>");
-          console.log(listItem);
-
-          listItem.append(
-            $("<h2>").text("Title: " + dbData[i].title),
-            $("<p>").text("Note: " + dbData[i].text),
-          );
-          console.log(listItem);
-
-          noteList.append(listItem);
-        }
-      })
-  }
-
-  // init queries
-  runDataQuery();
-
-
-</script>
 
 </html>
