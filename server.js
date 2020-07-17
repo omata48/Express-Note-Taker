@@ -11,7 +11,7 @@ var PORT = process.env.PORT || 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(express.static("public"))
+app.use(express.static("./Develop/public"))
 
 // DATA
 // =============================================================
@@ -20,8 +20,8 @@ app.use(express.static("public"))
 // Routes
 // =============================================================
 
-require("./routes/apiRoutes")(app);
-require("./routes/htmlRoutes")(app);
+require("./Develop/routes/apiRoutes")(app);
+require("./Develop/routes/htmlRoutes")(app);
 
 // Starts the server to begin listening
 // =============================================================
